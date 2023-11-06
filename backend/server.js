@@ -16,6 +16,22 @@ app.use(express.static(path.join(__dirname, "static")));
 const rootRoutes = require("./routes/root");
 app.use("/", rootRoutes);
 const PORT = process.env.PORT || 3000;
+
+if (process.env.NODE_ENV === "development") {
+  const livereload = require("livereload");
+  const connectLiveReload = require("connect-livereload");
+
+  const liveReloadServer = livereload.createServer();
+  liveReloadServer.watch(path.join(__dirname, "static"));
+  liveReloadServer.server.once("connection", () => {
+    setTimeout(() => {
+      liveReloadServer.refresh("/");
+    }, 100);
+  });
+
+  app.use(connectLiveReload());
+}
+
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
