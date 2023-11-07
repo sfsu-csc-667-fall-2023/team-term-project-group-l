@@ -27,6 +27,7 @@
     "morgan": "^1.10.0",
     "node-pg-migrate": "^6.2.2",
     "pg": "^8.11.3",
+    "pg-promise": "^11.5.4",
     "pug": "^3.0.2"
   },
   "devDependencies": {

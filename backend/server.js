@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const express = require("express");
 const app = express();
+require("dotenv").config();
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -14,7 +15,9 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "static")));
 const rootRoutes = require("./routes/root");
+const testRoutes = require("./routes/test/index.js");
 app.use("/", rootRoutes);
+app.use("/test", testRoutes);
 const PORT = process.env.PORT || 3000;
 
 if (process.env.NODE_ENV === "development") {
